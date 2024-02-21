@@ -1,11 +1,12 @@
 import turtle
 import random
 
+# 거북이 만나면 꼬리 하나 늘어가기 spot_lists, random_lists
+# 점수 더하면서 거북이 없애기  turtle
+
 # Set up the screen
 screen = turtle.Screen()
 screen.setup(width=600, height=600)
-
-
 screen.title("Catch Turtle")
 screen.tracer(0)  # Turn off animation
 
@@ -182,10 +183,6 @@ screen.onkeypress(move_left, "Left")
 
 # Listen for keyboard events
 screen.listen()
-
-
-
-
 
 # Keep the window open
 screen.mainloop()
