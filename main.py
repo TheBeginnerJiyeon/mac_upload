@@ -120,57 +120,53 @@ current_action=None
 def move_up():
     global current_action
     current_action="Up"
-    min_order=0
-    for i in range(16):
-        if value[i]>=move_t.position()[1]:
-            min_order=i
-            break
-    
+    current_x_num=int((move_t.position()[0]+225)//(30))
+    current_y_num=int((move_t.position()[1]+225)//(30))
+
     while current_action=="Up" and move_t.position()[1]<=225:
-        for i in range(min_order,16,1):    
-            move_t.goto(move_t.position()[0],value[i])
+        for i in range(current_y_num,16,1):    
+            move_t.goto(value[current_x_num],value[i])
+    return 0
         
 
 
 def move_right():
     global current_action
     current_action="Right"
-    min_order=0
-    for i in range(16):
-        if value[i]>=move_t.position()[0]:
-            min_order=i
-            break
-    
+
+    current_x_num=int((move_t.position()[0]+225)//(30))
+    current_y_num=int((move_t.position()[1]+225)//(30))
+
     while current_action=="Right" and move_t.position()[0]<=225:
-        for i in range(min_order,16,1):    
-            move_t.goto(value[i],move_t.position()[1])
-
-
+        for i in range(current_x_num,16,1):    
+            move_t.goto(value[i],value[current_y_num])
+    return 0
+    
 def move_down():
     global current_action
     current_action="Down"
-    max_order=15
-    for i in range(16):
-        if value[15-i]<=move_t.position()[1]:
-            max_order=15-i
-            break
-    
+
+    current_x_num=int((move_t.position()[0]+225)//(30))
+    current_y_num=int((move_t.position()[1]+225)//(30))
+
     while current_action=="Down" and move_t.position()[1]>=-225:
-        for i in range(max_order,-1,-1):    
-            move_t.goto(move_t.position()[0],value[i])
+        for i in range(current_y_num,-1,-1):    
+            move_t.goto(value[current_x_num],value[i])
+    return 0
+    
 
 def move_left():
     global current_action
     current_action="Left"
-    max_order=15
-    for i in range(16):
-        if value[15-i]<=move_t.position()[0]:
-            max_order=15-i
-            break
-    
+        
+    current_x_num=int((move_t.position()[0]+225)//(30))
+    current_y_num=int((move_t.position()[1]+225)//(30))
+
     while current_action=="Left" and move_t.position()[0]>=-225:
-        for i in range(max_order,-1,-1):    
-            move_t.goto(value[i],move_t.position()[1])
+        for i in range(current_x_num,-1,-1):    
+            move_t.goto(value[i],value[current_y_num])
+    
+    return 0
 
 
 
