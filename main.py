@@ -113,7 +113,7 @@ move_t.speed(1)
 # moving turtle animation
 
 value=[30*i-225 for i in range(16)]
-
+print(value)
 
 current_action=None
 # Define functions to change direction
@@ -122,12 +122,12 @@ def move_up():
     current_action="Up"
     min_order=0
     for i in range(16):
-        if value[i]>move_t.position()[1]:
+        if value[i]>=move_t.position()[1]:
             min_order=i
             break
     
-    for i in range(min_order,16):
-        while current_action=="Up" and move_t.position()[1]<=225:        
+    while current_action=="Up" and move_t.position()[1]<=225:
+        for i in range(min_order,16,1):    
             move_t.goto(move_t.position()[0],value[i])
         
 
@@ -137,12 +137,12 @@ def move_right():
     current_action="Right"
     min_order=0
     for i in range(16):
-        if value[i]>move_t.position()[0]:
+        if value[i]>=move_t.position()[0]:
             min_order=i
             break
     
-    for i in range(min_order,16):      
-        while current_action=="Right" and move_t.position()[0]<=225:
+    while current_action=="Right" and move_t.position()[0]<=225:
+        for i in range(min_order,16,1):    
             move_t.goto(value[i],move_t.position()[1])
 
 
@@ -151,12 +151,12 @@ def move_down():
     current_action="Down"
     max_order=15
     for i in range(16):
-        if value[15-i]<move_t.position()[1]:
+        if value[15-i]<=move_t.position()[1]:
             max_order=15-i
             break
     
-    for i in range(max_order,-1):
-        while current_action=="Down" and move_t.position()[1]>=-225:
+    while current_action=="Down" and move_t.position()[1]>=-225:
+        for i in range(max_order,-1,-1):    
             move_t.goto(move_t.position()[0],value[i])
 
 def move_left():
@@ -164,12 +164,12 @@ def move_left():
     current_action="Left"
     max_order=15
     for i in range(16):
-        if value[15-i]<move_t.position()[0]:
+        if value[15-i]<=move_t.position()[0]:
             max_order=15-i
             break
     
-    for i in range(max_order,-1):
-        while current_action=="Left" and move_t.position()[0]>=-225:        
+    while current_action=="Left" and move_t.position()[0]>=-225:
+        for i in range(max_order,-1,-1):    
             move_t.goto(value[i],move_t.position()[1])
 
 
