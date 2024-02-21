@@ -4,7 +4,9 @@ import random
 # Set up the screen
 screen = turtle.Screen()
 screen.setup(width=600, height=600)
-screen.title("Checkered Board")
+
+
+screen.title("Catch Turtle")
 screen.tracer(0)  # Turn off animation
 
 # Create a turtle
@@ -69,18 +71,26 @@ board_turtle.pendown()
 screen.update()
 screen.tracer(1)
 
-spot_lists={}
-prey_num=5
+spot_lists=[[None] * 16 for _ in range(16)]
+for j in range(0,16):
+    for k in range(0,16):
+        spot_lists[j][k]=[start_center_x+j*square_size,start_center_y-k*square_size]   
 
+print(spot_lists)
+
+# prey turtle
+prey_num=5
+random_lists=[]
 for i in range(prey_num):
     j=random.randint(0,15)
     k=random.randint(0,15)
-    l=[start_center_x+j*square_size,start_center_y-k*square_size]
-    spot_lists[f"prey_t{i}"]=l
+    l=spot_lists[j][k]
+    random_lists.append(l)
 
     # prey turtle random distribution
     prey_t=turtle.Turtle()
     prey_t.shape("turtle")
+    prey_t.left(45)
     prey_t.color("green")
     prey_t.penup()
     screen.tracer(0)
@@ -88,11 +98,7 @@ for i in range(prey_num):
     prey_t.pendown()
     screen.tracer(1)
 
-print(spot_lists)
-
-
-    
-
+print(random_lists)
 
 # moving turtle shape and size control
 move_t=board_turtle.clone()
@@ -103,24 +109,83 @@ move_t.shapesize(square_size/20,square_size/20)
 move_t.pen(pendown=False)
 move_t.speed(1)
 
+
 # moving turtle animation
-move_t.setheading(0)
-move_t.forward(square_size*(columns*2-1))
-move_t.right(90)
-move_t.forward(square_size*(rows*2-1))
-move_t.right(90)
-move_t.forward(square_size*(columns*2-1))
-move_t.right(90)
-move_t.forward(square_size*(rows*2-1))
-move_t.right(90)
+
+value=[30*i-225 for i in range(16)]
+
+
+current_action=None
+# Define functions to change direction
+def move_up():
+    global current_action
+    current_action="Up"
+    min_order=0
+    for i in range(16):
+        if value[i]>move_t.position()[1]:
+            min_order=i
+            break
+    
+    for i in range(min_order,16):
+        while current_action=="Up" and move_t.position()[1]<=225:        
+            move_t.goto(move_t.position()[0],value[i])
+        
+
+
+def move_right():
+    global current_action
+    current_action="Right"
+    min_order=0
+    for i in range(16):
+        if value[i]>move_t.position()[0]:
+            min_order=i
+            break
+    
+    for i in range(min_order,16):      
+        while current_action=="Right" and move_t.position()[0]<=225:
+            move_t.goto(value[i],move_t.position()[1])
+
+
+def move_down():
+    global current_action
+    current_action="Down"
+    max_order=15
+    for i in range(16):
+        if value[15-i]<move_t.position()[1]:
+            max_order=15-i
+            break
+    
+    for i in range(max_order,-1):
+        while current_action=="Down" and move_t.position()[1]>=-225:
+            move_t.goto(move_t.position()[0],value[i])
+
+def move_left():
+    global current_action
+    current_action="Left"
+    max_order=15
+    for i in range(16):
+        if value[15-i]<move_t.position()[0]:
+            max_order=15-i
+            break
+    
+    for i in range(max_order,-1):
+        while current_action=="Left" and move_t.position()[0]>=-225:        
+            move_t.goto(value[i],move_t.position()[1])
 
 
 
-""" def moving_law():
-    if  """
+# Bind keyboard events to functions
+screen.onkeypress(move_up, "Up")
+screen.onkeypress(move_right, "Right")
+screen.onkeypress(move_down, "Down")
+screen.onkeypress(move_left, "Left")
 
 
 
+
+
+# Listen for keyboard events
+screen.listen()
 
 
 
