@@ -193,11 +193,14 @@ def move_up():
                     if list(prey_tn[prey].position()) not in random_lists:
                         prey_tn[prey].hideturtle()
 
+            # 꼬리의 끝부분이 계속 에러를 발생시키는듯.. 이거는 뱀의 움직임을 생각해야한다
             if move_tn!={} and i>n:
+                screen.tracer(0)
                 for k in range(len(move_tn)):
                     move_tn[f"move_t{k+2}"].goto(value[current_x_num],value[i-(k+1)])
+                screen.tracer(1)
 
-            # 속도가 느린 거는 나중에 다 고치면 tracer(0)를 사용하자
+    
             
                             
     return 0
@@ -240,8 +243,10 @@ def move_right():
                         prey_tn[prey].hideturtle()
 
             if move_tn!={} and i>n:
+                screen.tracer(0)
                 for k in range(len(move_tn)):
                     move_tn[f"move_t{k+2}"].goto(value[i-(k+1)],value[current_y_num])
+                screen.tracer(1)
         
 
 
@@ -281,8 +286,10 @@ def move_down():
 
             # 끝에 있는 애들이 해당이 안돼서 안움직이는 네모 에러 발생함
             if move_tn!={} and i<(15-n):
+                screen.tracer(0)
                 for k in range(len(move_tn)):
                     move_tn[f"move_t{k+2}"].goto(value[current_x_num],value[i+(1+k)])
+                screen.tracer(1)
 
                 
 
@@ -325,8 +332,10 @@ def move_left():
 
 
             if move_tn!={} and i<(15-n):
+                screen.tracer(0)
                 for k in range(len(move_tn)):
                     move_tn[f"move_t{k+2}"].goto(value[i+(1+k)],value[current_y_num])
+                screen.tracer(1)
                 
             
     
