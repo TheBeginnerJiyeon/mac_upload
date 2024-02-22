@@ -1,8 +1,8 @@
 import turtle
 import random
 
-# 거북이 만나면 꼬리 하나 늘어가기 spot_lists, random_lists
-# 점수 더하면서 거북이 없애기  turtle
+# 거북이 만나면 꼬리 하나 늘어가기 spot_lists, random_lists >> 3개이상 함수로 만들기
+# 점수 더하면서 거북이 없애기  turtle >> write로 점수판 만들기
 
 # Set up the screen
 screen = turtle.Screen()
