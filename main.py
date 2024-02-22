@@ -8,6 +8,7 @@ screen = turtle.Screen()
 screen.setup(width=600, height=600)
 screen.title("Catch Turtle")
 prey_num=int(screen.numinput("Prey number","How many prey turtle?",1,1,10))
+heart_color=screen.textinput("Color","what color do you like?").lower().strip()
 screen.tracer(0)  # Turn off animation
 
 
@@ -137,7 +138,8 @@ move_t.goto(start_center_x,start_center_y)
 
 
 def pink_heart():
-    color="pink"
+    global heart_color
+    default_color="pink"
     heart_t=turtle.Turtle()
     heart_t.hideturtle()
     
@@ -146,7 +148,10 @@ def pink_heart():
     for coor in heart_coor:
         heart_t.penup()
         heart_t.goto(-240+30*coor[0],-210+30*coor[1])
-        draw_square(heart_t,color)
+        try:
+            draw_square(heart_t,heart_color)
+        except:
+            draw_square(heart_t,default_color)
         
 
 
