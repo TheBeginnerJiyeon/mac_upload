@@ -79,10 +79,9 @@ for j in range(0,16):
 
 print(spot_lists)
 
-# prey turtle
-prey_num=5
 random_lists=[]
-for i in range(prey_num):
+# prey turtle
+def prey_turtle():    
     j=random.randint(0,15)
     k=random.randint(0,15)
     l=spot_lists[j][k]
@@ -98,9 +97,11 @@ for i in range(prey_num):
     prey_t.goto(l[0],l[1])
     prey_t.pendown()
     screen.tracer(1)
-
+    return prey_t
+    
+prey_t1=prey_turtle()
 print(random_lists)
-
+        
 # moving turtle shape and size control
 move_t=board_turtle.clone()
 move_t.color("lightblue")
@@ -111,15 +112,16 @@ move_t.pen(pendown=False)
 move_t.speed(1)
 
 
-# moving turtle animation
-
+#  chess board coordinate
 value=[30*i-225 for i in range(16)]
 print(value)
 
 current_action=None
+move_t2=None
 # Define functions to change direction
 def move_up():
     global current_action
+    global move_t2
     current_action="Up"
     current_x_num=int((move_t.position()[0]+225)//(30))
     current_y_num=int((move_t.position()[1]+225)//(30))
@@ -127,12 +129,27 @@ def move_up():
     while current_action=="Up" and move_t.position()[1]<=225:
         for i in range(current_y_num,16,1):    
             move_t.goto(value[current_x_num],value[i])
+            if list(move_t.position()) in random_lists:
+                move_t2=another_turtle(move_t.position()[0],move_t.position()[1])
+                random_lists.remove(list(move_t.position()))
+                if list(prey_t1.position()) not in random_lists:
+                    prey_t1.clear()
+                    prey_t1.hideturtle()
+                if i>=1:
+                    move_t2.goto(value[current_x_num],value[i-1])
+            if move_t2!=None and i>0:
+                move_t2.goto(value[current_x_num],value[i])
+                
+                
+
+            
     return 0
         
 
 
 def move_right():
     global current_action
+    global move_t2
     current_action="Right"
 
     current_x_num=int((move_t.position()[0]+225)//(30))
@@ -141,10 +158,23 @@ def move_right():
     while current_action=="Right" and move_t.position()[0]<=225:
         for i in range(current_x_num,16,1):    
             move_t.goto(value[i],value[current_y_num])
+            if list(move_t.position()) in random_lists:
+                move_t2=another_turtle(move_t.position()[0],move_t.position()[1])
+                
+                random_lists.remove(list(move_t.position()))
+                if list(prey_t1.position()) not in random_lists:
+                    prey_t1.clear()
+                    prey_t1.hideturtle()
+            if move_t2!=None and i>0:
+                move_t2.goto(value[i-1],value[current_y_num])
+                
+
+
     return 0
     
 def move_down():
     global current_action
+    global move_t2
     current_action="Down"
 
     current_x_num=int((move_t.position()[0]+225)//(30))
@@ -153,11 +183,23 @@ def move_down():
     while current_action=="Down" and move_t.position()[1]>=-225:
         for i in range(current_y_num,-1,-1):    
             move_t.goto(value[current_x_num],value[i])
+            if list(move_t.position()) in random_lists:
+                move_t2=another_turtle(move_t.position()[0],move_t.position()[1])
+                
+                random_lists.remove(list(move_t.position()))
+                if list(prey_t1.position()) not in random_lists:
+                    prey_t1.hideturtle()
+                    prey_t1.clear()
+            if move_t2!=None and i<15:
+                move_t2.goto(value[current_x_num],value[i+1])
+                
+
     return 0
     
 
 def move_left():
     global current_action
+    global move_t2
     current_action="Left"
         
     current_x_num=int((move_t.position()[0]+225)//(30))
@@ -166,6 +208,16 @@ def move_left():
     while current_action=="Left" and move_t.position()[0]>=-225:
         for i in range(current_x_num,-1,-1):    
             move_t.goto(value[i],value[current_y_num])
+            if list(move_t.position()) in random_lists:
+                move_t2=another_turtle(move_t.position()[0],move_t.position()[1])
+                
+                random_lists.remove(list(move_t.position()))
+                if list(prey_t1.position()) not in random_lists:
+                    prey_t1.hideturtle()
+                    prey_t1.clear()
+            if move_t2==None and i<15:
+                move_t2.goto(value[i+1],value[current_y_num])
+                
     
     return 0
 
@@ -177,7 +229,21 @@ screen.onkeypress(move_right, "Right")
 screen.onkeypress(move_down, "Down")
 screen.onkeypress(move_left, "Left")
 
+# moving turtle animation
 
+def another_turtle(x,y):
+    move_t2=move_t.clone()
+    move_t2.color("blue")
+
+    move_t2.pen(pendown=False)
+    move_t2.speed(1)
+
+    current_x_num=int((move_t.position()[0]+225)//(30))
+    current_y_num=int((move_t.position()[1]+225)//(30))
+    move_t2.setposition(value[current_x_num],value[current_y_num-1])
+    return move_t2
+
+# score
 
 
 
