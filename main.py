@@ -8,7 +8,9 @@ import random
 screen = turtle.Screen()
 screen.setup(width=600, height=600)
 screen.title("Catch Turtle")
+prey_num=screen.numinput("Prey number","How many prey turtle?",1,1,10)
 screen.tracer(0)  # Turn off animation
+
 
 # Create a turtle
 board_turtle = turtle.Turtle()
@@ -68,6 +70,17 @@ board_turtle.color("pink")
 board_turtle.goto(start_center_x,start_center_y)
 board_turtle.pendown()
 
+# score
+score=0
+score_t=turtle.Turtle()
+score_t.penup()
+score_t.hideturtle()
+screen.tracer(0)
+score_t.goto(243,-260)
+score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
+score_t.pendown()
+screen.tracer(1)
+
 # Update the screen and animation began
 screen.update()
 screen.tracer(1)
@@ -77,9 +90,10 @@ for j in range(0,16):
     for k in range(0,16):
         spot_lists[j][k]=[start_center_x+j*square_size,start_center_y-k*square_size]   
 
-print(spot_lists)
+
 
 random_lists=[]
+print(random_lists)
 # prey turtle
 def prey_turtle():    
     j=random.randint(0,15)
@@ -98,7 +112,9 @@ def prey_turtle():
     prey_t.pendown()
     screen.tracer(1)
     return prey_t
-    
+
+
+
 prey_t1=prey_turtle()
 print(random_lists)
         
@@ -112,17 +128,24 @@ move_t.pen(pendown=False)
 move_t.speed(1)
 
 
+
+
 #  chess board coordinate
 value=[30*i-225 for i in range(16)]
-print(value)
+
 
 current_action=None
 move_t2=None
+
+
 
 # Define functions to change direction
 def move_up():
     global current_action
     global move_t2
+    global score
+    global score_t
+
     current_action="Up"
     current_x_num=int((move_t.position()[0]+225)//(30))
     current_y_num=int((move_t.position()[1]+225)//(30))
@@ -133,16 +156,16 @@ def move_up():
             if list(move_t.position()) in random_lists:
                 move_t2=another_turtle(move_t.position()[0],move_t.position()[1])
                 random_lists.remove(list(move_t.position()))
+                score=score+1
+                score_t.clear()
+                score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
                 if list(prey_t1.position()) not in random_lists:
                     prey_t1.clear()
                     prey_t1.hideturtle()
             if move_t2!=None and i>0:
                 move_t2.goto(value[current_x_num],value[i-1])
                 move_t2.speed(1)
-                
-                
-
-            
+                            
     return 0
         
 
@@ -150,6 +173,9 @@ def move_up():
 def move_right():
     global current_action
     global move_t2
+    global score
+    global score_t
+
     current_action="Right"
 
     current_x_num=int((move_t.position()[0]+225)//(30))
@@ -162,13 +188,15 @@ def move_right():
                 move_t2=another_turtle(move_t.position()[0],move_t.position()[1])
                 
                 random_lists.remove(list(move_t.position()))
+                score=score+1
+                score_t.clear()
+                score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
                 if list(prey_t1.position()) not in random_lists:
                     prey_t1.clear()
                     prey_t1.hideturtle()
             if move_t2!=None and i>0:
                 move_t2.goto(value[i-1],value[current_y_num])
-                move_t2.speed(1)
-                
+                move_t2.speed(1) 
 
 
     return 0
@@ -176,6 +204,9 @@ def move_right():
 def move_down():
     global current_action
     global move_t2
+    global score
+    global score_t
+
     current_action="Down"
 
     current_x_num=int((move_t.position()[0]+225)//(30))
@@ -188,6 +219,9 @@ def move_down():
                 move_t2=another_turtle(move_t.position()[0],move_t.position()[1])
                 
                 random_lists.remove(list(move_t.position()))
+                score=score+1
+                score_t.clear()
+                score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
                 if list(prey_t1.position()) not in random_lists:
                     prey_t1.hideturtle()
                     prey_t1.clear()
@@ -202,6 +236,9 @@ def move_down():
 def move_left():
     global current_action
     global move_t2
+    global score
+    global score_t
+
     current_action="Left"
         
     current_x_num=int((move_t.position()[0]+225)//(30))
@@ -214,6 +251,9 @@ def move_left():
                 move_t2=another_turtle(move_t.position()[0],move_t.position()[1])
                 
                 random_lists.remove(list(move_t.position()))
+                score=score+1
+                score_t.clear()
+                score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
                 if list(prey_t1.position()) not in random_lists:
                     prey_t1.hideturtle()
                     prey_t1.clear()
@@ -235,23 +275,26 @@ screen.onkeypress(move_left, "Left")
 # moving turtle animation
 
 def another_turtle(x,y):
-    move_t2=move_t.clone()
-    move_t2.color("blue")
+    move_tn=move_t.clone()
+    move_tn.color("blue")
 
-    move_t2.pen(pendown=False)
-    move_t2.speed(1)
+    move_tn.pen(pendown=False)
+    move_tn.speed(1)
 
-    current_x_num=int((move_t.position()[0]+225)//(30))
-    current_y_num=int((move_t.position()[1]+225)//(30))
-    move_t2.setposition(value[current_x_num],value[current_y_num])
-    return move_t2
-
-# score
-
-
+    current_x_num=int((x+225)//(30))
+    current_y_num=int((y+225)//(30))
+    move_tn.setposition(value[current_x_num],value[current_y_num])
+    return move_tn
 
 # Listen for keyboard events
 screen.listen()
 
+
+
+
+
+
 # Keep the window open
 screen.mainloop()
+
+print(score)
