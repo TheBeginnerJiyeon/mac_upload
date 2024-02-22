@@ -1,6 +1,8 @@
 import turtle
 import random
 
+# 뱀 꼬리 부분 움직임만 수정하면 끝!!
+
 # Set up the screen
 screen = turtle.Screen()
 screen.setup(width=600, height=600)
@@ -120,9 +122,7 @@ prey_tn={}
 for i in range(prey_num):
     prey_tn[f"prey_t{i}"]=prey_turtle()
 
-print(random_lists)
-print(prey_tn)
-# 먹이거북은 잘 배분됨
+
         
 # moving turtle shape and size control
 move_t=turtle.Turtle()
@@ -177,7 +177,7 @@ def move_up():
             
             n=score
 
-            # 꼬리가 길어져서 꼬리가 다 넣어지지 않는 길이면 하나하나 이동을 안하고 그거리를 뛰어넘어 가버린다
+            # 꼬리가 길어져서 꼬리가 다 넣어지지 않는 길이면 하나하나 이동을 안하고 그거리를 뛰어넘어 가버린다 여기 고치기
             if list(move_t.position()) in random_lists:
                 move_tn[f"move_t{n+2}"]=another_turtle(move_t.position()[0],move_t.position()[1])
                 random_lists.remove(list(move_t.position()))
@@ -193,15 +193,12 @@ def move_up():
                     if list(prey_tn[prey].position()) not in random_lists:
                         prey_tn[prey].hideturtle()
 
-            # 꼬리의 끝부분이 계속 에러를 발생시키는듯.. 이거는 뱀의 움직임을 생각해야한다
+            # 뱀의 움직임을 생각해야한다
             if move_tn!={} and i>n:
                 screen.tracer(0)
                 for k in range(len(move_tn)):
                     move_tn[f"move_t{k+2}"].goto(value[current_x_num],value[i-(k+1)])
-                screen.tracer(1)
-
-    
-            
+                screen.tracer(1)     
                             
     return 0
         
@@ -246,10 +243,7 @@ def move_right():
                 screen.tracer(0)
                 for k in range(len(move_tn)):
                     move_tn[f"move_t{k+2}"].goto(value[i-(k+1)],value[current_y_num])
-                screen.tracer(1)
-        
-
-
+                screen.tracer(1)        
     return 0
     
 def move_down():
@@ -283,15 +277,12 @@ def move_down():
                 for prey in prey_tn:
                     if list(prey_tn[prey].position()) not in random_lists:
                         prey_tn[prey].hideturtle()
-
-            # 끝에 있는 애들이 해당이 안돼서 안움직이는 네모 에러 발생함
+    
             if move_tn!={} and i<(15-n):
                 screen.tracer(0)
                 for k in range(len(move_tn)):
                     move_tn[f"move_t{k+2}"].goto(value[current_x_num],value[i+(1+k)])
-                screen.tracer(1)
-
-                
+                screen.tracer(1)            
 
     return 0
     
@@ -320,25 +311,20 @@ def move_left():
                 score=score+1
                 score_t.clear()
                 score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
-
                 if score==prey_num:
                     love_turtle()
                     pink_heart()
-
 
                 for prey in prey_tn:
                     if list(prey_tn[prey].position()) not in random_lists:
                         prey_tn[prey].hideturtle()
 
-
             if move_tn!={} and i<(15-n):
                 screen.tracer(0)
                 for k in range(len(move_tn)):
                     move_tn[f"move_t{k+2}"].goto(value[i+(1+k)],value[current_y_num])
-                screen.tracer(1)
-                
-            
-    
+                screen.tracer(1)   
+             
     return 0
 
 
@@ -376,15 +362,9 @@ def love_turtle():
 # Listen for keyboard events
 screen.listen()
 
-
     
-
-
 # Keep the window open
 screen.mainloop()
-
-
-
 
 
 # 문제 없음
