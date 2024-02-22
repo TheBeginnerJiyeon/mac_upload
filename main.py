@@ -19,22 +19,22 @@ rows = 8
 columns = 8
 
 # Function to draw a single row of squares
-def draw_row(color1, color2):
+def draw_row(turtle,color1, color2):
     for _ in range(columns):
-        draw_square(color1)
-        draw_square(color2)
+        draw_square(turtle,color1)
+        draw_square(turtle,color2)
 
 # Function to draw a single square
-def draw_square(color):
-    board_turtle.begin_fill()
-    board_turtle.fillcolor(color)
+def draw_square(turtle,color):
+    turtle.begin_fill()
+    turtle.fillcolor(color)
     for _ in range(4):
-        board_turtle.forward(square_size)
-        board_turtle.right(90)
-    board_turtle.end_fill()
-    board_turtle.penup()
-    board_turtle.forward(square_size)
-    board_turtle.pendown()
+        turtle.forward(square_size)
+        turtle.right(90)
+    turtle.end_fill()
+    turtle.penup()
+    turtle.forward(square_size)
+    turtle.pendown()
 
 start_x=(-columns * square_size)
 start_y=((screen.window_height())/2-square_size)
@@ -53,19 +53,25 @@ def draw_board():
         board_turtle.goto(start_x, board_turtle.ycor() - square_size)
         board_turtle.setheading(0)
         board_turtle.pendown()
-        draw_row(color1, color2)
+        draw_row(board_turtle,color1, color2)
+
+
+
+
+
 
 # Draw the board
 board_turtle.penup()
 board_turtle.goto(-columns * square_size / 2, rows * square_size / 2)
-
 draw_board()
-
-
 board_turtle.penup()
-board_turtle.color("pink")
 board_turtle.goto(start_center_x,start_center_y)
 board_turtle.pendown()
+board_turtle.hideturtle()
+
+
+
+
 
 # score
 score=0
@@ -119,15 +125,29 @@ print(prey_tn)
 # 먹이거북은 잘 배분됨
         
 # moving turtle shape and size control
-move_t=board_turtle.clone()
+move_t=turtle.Turtle()
 move_t.color("lightblue")
-board_turtle.hideturtle()
 move_t.shape("square")
 move_t.shapesize(square_size/20,square_size/20)
 move_t.pen(pendown=False)
 move_t.speed(1)
+move_t.penup()
+move_t.goto(start_center_x,start_center_y)
 
 
+
+def pink_heart():
+    color="pink"
+    heart_t=turtle.Turtle()
+    heart_t.hideturtle()
+    
+    heart_coor=[[7,8],[8,9],[9,8],[10,9],[11,8],[10,7],[9,6],[8,7]]
+    heart_t.speed(0)
+    for coor in heart_coor:
+        heart_t.penup()
+        heart_t.goto(-240+30*coor[0],-210+30*coor[1])
+        draw_square(heart_t,color)
+        
 
 
 #  chess board coordinate
@@ -140,6 +160,7 @@ move_tn={}
 
 # Define functions to change direction
 def move_up():
+    global move_t
     global current_action
     global move_tn
     global prey_tn
@@ -156,7 +177,6 @@ def move_up():
             
             n=score
 
-            # 먹이 거북의 모습이 사라지지 않는다?? 가끔 파란 상자가 남아있다
             # 꼬리가 길어져서 꼬리가 다 넣어지지 않는 길이면 하나하나 이동을 안하고 그거리를 뛰어넘어 가버린다
             if list(move_t.position()) in random_lists:
                 move_tn[f"move_t{n+2}"]=another_turtle(move_t.position()[0],move_t.position()[1])
@@ -164,6 +184,10 @@ def move_up():
                 score=score+1
                 score_t.clear()
                 score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
+
+                if score==prey_num:
+                    love_turtle()
+                    pink_heart()
 
                 for prey in prey_tn:
                     if list(prey_tn[prey].position()) not in random_lists:
@@ -173,7 +197,7 @@ def move_up():
                 for k in range(len(move_tn)):
                     move_tn[f"move_t{k+2}"].goto(value[current_x_num],value[i-(k+1)])
 
-            # 속도가 느린 거는 나중에 tracer를 사용하자
+            # 속도가 느린 거는 나중에 다 고치면 tracer(0)를 사용하자
             
                             
     return 0
@@ -181,8 +205,10 @@ def move_up():
 
 
 def move_right():
+    global move_t
     global current_action
-    global move_t2
+    global move_tn
+    global prey_tn
     global score
     global score_t
 
@@ -205,9 +231,14 @@ def move_right():
                 score_t.clear()
                 score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
 
+                if score==prey_num:
+                    love_turtle()
+                    pink_heart()
+
                 for prey in prey_tn:
                     if list(prey_tn[prey].position()) not in random_lists:
                         prey_tn[prey].hideturtle()
+
             if move_tn!={} and i>n:
                 for k in range(len(move_tn)):
                     move_tn[f"move_t{k+2}"].goto(value[i-(k+1)],value[current_y_num])
@@ -217,11 +248,12 @@ def move_right():
     return 0
     
 def move_down():
+    global move_t
     global current_action
-    global move_t2
+    global move_tn
+    global prey_tn
     global score
     global score_t
-
     current_action="Down"
 
     current_x_num=int((move_t.position()[0]+225)//(30))
@@ -239,10 +271,15 @@ def move_down():
                 score_t.clear()
                 score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
 
+                if score==prey_num:
+                    love_turtle()
+                    pink_heart()
+
                 for prey in prey_tn:
                     if list(prey_tn[prey].position()) not in random_lists:
                         prey_tn[prey].hideturtle()
 
+            # 끝에 있는 애들이 해당이 안돼서 안움직이는 네모 에러 발생함
             if move_tn!={} and i<(15-n):
                 for k in range(len(move_tn)):
                     move_tn[f"move_t{k+2}"].goto(value[current_x_num],value[i+(1+k)])
@@ -253,8 +290,10 @@ def move_down():
     
 
 def move_left():
+    global move_t
     global current_action
-    global move_t2
+    global move_tn
+    global prey_tn
     global score
     global score_t
 
@@ -275,6 +314,11 @@ def move_left():
                 score_t.clear()
                 score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
 
+                if score==prey_num:
+                    love_turtle()
+                    pink_heart()
+
+
                 for prey in prey_tn:
                     if list(prey_tn[prey].position()) not in random_lists:
                         prey_tn[prey].hideturtle()
@@ -284,6 +328,7 @@ def move_left():
                 for k in range(len(move_tn)):
                     move_tn[f"move_t{k+2}"].goto(value[i+(1+k)],value[current_y_num])
                 
+            
     
     return 0
 
@@ -309,19 +354,31 @@ def another_turtle(current_x,current_y):
     move_tn.setposition(value[current_x_num],value[current_y_num])
     return move_tn
 
+def love_turtle():
+    love_t=turtle.Turtle()
+    love_t.penup()
+    love_t.hideturtle()
+    screen.tracer(0)
+    love_t.goto(-243,-260)
+    love_t.write(f"Do you want to go out with me tonight? *^^*",font=("Arial",15,"bold"),align="left")
+    love_t.pendown()
+    screen.tracer(1)
+
 # Listen for keyboard events
 screen.listen()
 
 
-
-
+    
 
 
 # Keep the window open
 screen.mainloop()
 
 
-# 
+
+
+
+# 문제 없음
 print(move_tn)
 print(random_lists)
 print(score)
