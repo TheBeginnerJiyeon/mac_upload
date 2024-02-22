@@ -118,6 +118,7 @@ print(value)
 
 current_action=None
 move_t2=None
+
 # Define functions to change direction
 def move_up():
     global current_action
@@ -135,10 +136,9 @@ def move_up():
                 if list(prey_t1.position()) not in random_lists:
                     prey_t1.clear()
                     prey_t1.hideturtle()
-                if i>=1:
-                    move_t2.goto(value[current_x_num],value[i-1])
             if move_t2!=None and i>0:
-                move_t2.goto(value[current_x_num],value[i])
+                move_t2.goto(value[current_x_num],value[i-1])
+                move_t2.speed(1)
                 
                 
 
@@ -167,6 +167,7 @@ def move_right():
                     prey_t1.hideturtle()
             if move_t2!=None and i>0:
                 move_t2.goto(value[i-1],value[current_y_num])
+                move_t2.speed(1)
                 
 
 
@@ -192,6 +193,7 @@ def move_down():
                     prey_t1.clear()
             if move_t2!=None and i<15:
                 move_t2.goto(value[current_x_num],value[i+1])
+                move_t2.speed(1)
                 
 
     return 0
@@ -215,8 +217,9 @@ def move_left():
                 if list(prey_t1.position()) not in random_lists:
                     prey_t1.hideturtle()
                     prey_t1.clear()
-            if move_t2==None and i<15:
+            if move_t2!=None and i<15:
                 move_t2.goto(value[i+1],value[current_y_num])
+                move_t2.speed(1)
                 
     
     return 0
@@ -240,7 +243,7 @@ def another_turtle(x,y):
 
     current_x_num=int((move_t.position()[0]+225)//(30))
     current_y_num=int((move_t.position()[1]+225)//(30))
-    move_t2.setposition(value[current_x_num],value[current_y_num-1])
+    move_t2.setposition(value[current_x_num],value[current_y_num])
     return move_t2
 
 # score
