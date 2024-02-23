@@ -29,6 +29,7 @@ def draw_row(turtle,color1, color2):
 
 # Function to draw a single square
 def draw_square(turtle,color):
+    turtle.hideturtle()
     turtle.begin_fill()
     turtle.fillcolor(color)
     for _ in range(4):
@@ -58,11 +59,6 @@ def draw_board():
         board_turtle.pendown()
         draw_row(board_turtle,color1, color2)
 
-
-
-
-
-
 # Draw the board
 board_turtle.penup()
 board_turtle.goto(-columns * square_size / 2, rows * square_size / 2)
@@ -71,10 +67,6 @@ board_turtle.penup()
 board_turtle.goto(start_center_x,start_center_y)
 board_turtle.pendown()
 board_turtle.hideturtle()
-
-
-
-
 
 # score
 score=0
@@ -95,7 +87,6 @@ spot_lists=[[None] * 16 for _ in range(16)]
 for j in range(0,16):
     for k in range(0,16):
         spot_lists[j][k]=[start_center_x+j*square_size,start_center_y-k*square_size]   
-
 
 
 random_lists=[]
@@ -123,8 +114,7 @@ prey_tn={}
 for i in range(prey_num):
     prey_tn[f"prey_t{i}"]=prey_turtle()
 
-
-        
+     
 # moving turtle shape and size control
 move_t=turtle.Turtle()
 move_t.color("lightblue")
@@ -136,24 +126,27 @@ move_t.penup()
 move_t.goto(start_center_x,start_center_y)
 
 
-
 def pink_heart():
     global heart_color
     default_color="pink"
     heart_t=turtle.Turtle()
     heart_t.hideturtle()
-    
+    heart_t.penup()
     heart_coor=[[7,8],[8,9],[9,8],[10,9],[11,8],[10,7],[9,6],[8,7]]
     heart_t.speed(0)
     for coor in heart_coor:
         heart_t.penup()
         heart_t.goto(-240+30*coor[0],-210+30*coor[1])
-        try:
-            draw_square(heart_t,heart_color)
-        except:
+        if heart_color=="":
             draw_square(heart_t,default_color)
-        
+        else:
+            try:
+                draw_square(heart_t,heart_color)
+            except:
+                draw_square(heart_t,default_color)
+            
 
+        
 
 #  chess board coordinate
 value=[30*i-225 for i in range(16)]
@@ -183,6 +176,7 @@ def move_up():
             n=score
 
             # 꼬리가 길어져서 꼬리가 다 넣어지지 않는 길이면 하나하나 이동을 안하고 그거리를 뛰어넘어 가버린다 여기 고치기
+            # 가끔 거북이 안사라지고 네모 박스 터틀이 멈춘다??
             if list(move_t.position()) in random_lists:
                 move_tn[f"move_t{n+2}"]=another_turtle(move_t.position()[0],move_t.position()[1])
                 random_lists.remove(list(move_t.position()))
@@ -343,16 +337,22 @@ screen.onkeypress(move_left, "Left")
 # moving turtle animation
 
 def another_turtle(current_x,current_y):
-    move_tn=move_t.clone()
-    move_tn.color("blue")
-
-    move_tn.pen(pendown=False)
-    move_tn.speed(1)
-
+    
+    move_trail=turtle.Turtle()
+    screen.tracer(0)
+    move_trail.penup()
+    move_trail.hideturtle()
+    move_trail.shape("square")
+    move_trail.color("blue")
+    move_trail.shapesize(square_size/20,square_size/20)
+    move_trail.speed(1)
     current_x_num=int((current_x+225)//(30))
     current_y_num=int((current_y+225)//(30))
-    move_tn.setposition(value[current_x_num],value[current_y_num])
-    return move_tn
+    move_trail.setposition(value[current_x_num],value[current_y_num])
+    move_trail.showturtle()
+    screen.tracer(1)
+
+    return move_trail
 
 def love_turtle():
     love_t=turtle.Turtle()
