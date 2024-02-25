@@ -11,6 +11,7 @@ heart_color=screen.textinput("Color","what color do you like?").lower().strip()
 screen.tracer(0)  # Turn off animation
 
 
+
 # Create a turtle
 board_turtle = turtle.Turtle()
 board_turtle.hideturtle()
@@ -197,15 +198,10 @@ def move_up():
                 break
             # 꼬리 갯수만 고치면!!!!!! ㅠㅠ
 
-            screen.tracer(0)
             copy_position=[]
             for index,key in enumerate(move_tn):
-                copy_position.append(move_tn[key].position())
-
-            for index,key in enumerate(move_tn):    
-                if index>=1:
-                    move_tn[key].goto(copy_position[index-1])       
-            screen.tracer(1)
+                copy_position.append(move_tn[key].position())         
+        
 
             if move_t1.position()[1]==225:
                 if move_t1.position()[0]==-225:
@@ -216,8 +212,10 @@ def move_up():
                     move_t1.right(90)                         
                 
                 move_t1.forward(square_size)
-
-        
+                for index,key in enumerate(move_tn):    
+                    if index>=1:
+                        move_tn[key].goto(copy_position[index-1])   
+    
 
                 if list(move_t1.position()) in random_lists:
                     score_t.clear()
@@ -239,6 +237,9 @@ def move_up():
 
             else:
                 move_t1.forward(square_size)
+                for index,key in enumerate(move_tn):    
+                    if index>=1:
+                        move_tn[key].goto(copy_position[index-1]) 
                 if list(move_t1.position()) in random_lists:
                     score_t.clear()
                     move_tn[f"move_t{n+2}"]=another_turtle(move_tn[f"move_t{n+1}"].position()[0],move_tn[f"move_t{n+1}"].position()[1])
@@ -283,16 +284,12 @@ def move_right():
             if current_action!="Right":
                 break     
             
-            screen.tracer(0)
+     
             copy_position=[]
             for index,key in enumerate(move_tn):
-                copy_position.append(move_tn[key].position())
+                copy_position.append(move_tn[key].position())              
 
-            for index,key in enumerate(move_tn):    
-                if index>=1:
-                    move_tn[key].goto(copy_position[index-1])       
-
-            screen.tracer(1)
+         
 
             if move_t1.position()[0]==225:
                 if move_t1.position()[1]==-225:
@@ -303,6 +300,9 @@ def move_right():
                     move_t1.right(90)                         
                 
                 move_t1.forward(square_size)
+                for index,key in enumerate(move_tn):    
+                    if index>=1:
+                        move_tn[key].goto(copy_position[index-1])  
 
                 if list(move_t1.position()) in random_lists:
                     score_t.clear()
@@ -324,6 +324,9 @@ def move_right():
 
             else:
                 move_t1.forward(square_size)
+                for index,key in enumerate(move_tn):    
+                    if index>=1:
+                        move_tn[key].goto(copy_position[index-1])  
                 if list(move_t1.position()) in random_lists:
                     score_t.clear()
                     move_tn[f"move_t{n+2}"]=another_turtle(move_tn[f"move_t{n+1}"].position()[0],move_tn[f"move_t{n+1}"].position()[1])
@@ -368,17 +371,12 @@ def move_down():
             if current_action!="Down":
                 break       
 
-            screen.tracer(0)      
+    
                     
             copy_position=[]
             for index,key in enumerate(move_tn):
-                copy_position.append(move_tn[key].position())
+                copy_position.append(move_tn[key].position())            
 
-            for index,key in enumerate(move_tn):    
-                if index>=1:
-                    move_tn[key].goto(copy_position[index-1])  
-            
-            screen.tracer(1)
 
             if move_t1.position()[1]==-225:
                 if move_t1.position()[0]==-225:
@@ -389,6 +387,9 @@ def move_down():
                     move_t1.right(90)                         
                 
                 move_t1.forward(square_size)
+                for index,key in enumerate(move_tn):    
+                    if index>=1:
+                        move_tn[key].goto(copy_position[index-1])  
 
                 if list(move_t1.position()) in random_lists:
                     score_t.clear()
@@ -411,6 +412,9 @@ def move_down():
 
             else:
                 move_t1.forward(square_size)
+                for index,key in enumerate(move_tn):    
+                    if index>=1:
+                        move_tn[key].goto(copy_position[index-1])  
                 if list(move_t1.position()) in random_lists:
                     score_t.clear()
                     move_tn[f"move_t{n+2}"]=another_turtle(move_tn[f"move_t{n+1}"].position()[0],move_tn[f"move_t{n+1}"].position()[1])
@@ -454,17 +458,14 @@ def move_left():
             if current_action!="Left":
                 break         
             
-            screen.tracer(0)
+        
             copy_position=[]
             for index,key in enumerate(move_tn):
                 copy_position.append(move_tn[key].position())
 
-            for index,key in enumerate(move_tn):    
-                if index>=1:
-                    move_tn[key].goto(copy_position[index-1])  
+             
 
-            screen.tracer(1)
-            
+
             if move_t1.position()[0]==-225:
                 if move_t1.position()[1]==-225:
                     move_t1.right(90)
@@ -474,6 +475,9 @@ def move_left():
                     move_t1.right(90)                         
                 
                 move_t1.forward(square_size)
+                for index,key in enumerate(move_tn):    
+                    if index>=1:
+                        move_tn[key].goto(copy_position[index-1]) 
 
                 if list(move_t1.position()) in random_lists:
                     score_t.clear()
@@ -494,6 +498,9 @@ def move_left():
 
             else:
                 move_t1.forward(square_size)
+                for index,key in enumerate(move_tn):    
+                    if index>=1:
+                        move_tn[key].goto(copy_position[index-1]) 
                 if list(move_t1.position()) in random_lists:
                     score_t.clear()
                     move_tn[f"move_t{n+2}"]=another_turtle(move_tn[f"move_t{n+1}"].position()[0],move_tn[f"move_t{n+1}"].position()[1])
