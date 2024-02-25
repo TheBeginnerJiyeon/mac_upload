@@ -181,23 +181,32 @@ def move_up():
     global score_t
 
     current_action="Up"
+    current_x_num=int((move_t1.position()[0]+225)//(30))
+    current_y_num=int((move_t1.position()[1]+225)//(30))
+    move_t1.goto(value[current_x_num],value[current_y_num])
+    move_t1.setheading(90)
+    n=score
 
-    while current_action=="Up" and move_t1.position()[1]<=225:
+    for prey in prey_tn:
+        if list(prey_tn[prey].position()) not in random_lists:
+            prey_tn[prey].hideturtle()
 
-        current_x_num=int((move_t1.position()[0]+225)//(30))
-        current_y_num=int((move_t1.position()[1]+225)//(30))
-        move_t1.goto(value[current_x_num],value[current_y_num])
-        move_t1.setheading(90)
-        n=score
-        # 전에 있던 자리로!!
-        for _ in range(15):
+    for _ in range(15):
+        while current_action=="Up" and move_t1.position()[1]<=225:        
+            
+            # 전에 있던 자리로!!
+            
+            for index,key in enumerate(move_tn):
+                if index>=1:
+                    move_tn[key].goto(move_tn[f"move_t{index}"].position())       
+
             if move_t1.position()[1]==225:
                 if move_t1.position()[0]==-225:
                     move_t1.right(90)
                 elif move_t1.position()[0]==225:
                     move_t1.left(90)
                 else:
-                   move_t1.right(90) 
+                    move_t1.right(90)                         
                 
                 move_t1.forward(square_size)
 
@@ -217,12 +226,7 @@ def move_up():
 
                     for prey in prey_tn:
                         if list(prey_tn[prey].position()) not in random_lists:
-                            prey_tn[prey].hideturtle()
-
-
-                for index,key in move_tn:
-                    if index>=1:
-                        move_tn[key].goto(move_tn[f"move_t{index}"])
+                            prey_tn[prey].hideturtle()                           
 
             else:
                 move_t1.forward(square_size)
@@ -230,7 +234,7 @@ def move_up():
 
                     move_tn[f"move_t{n+2}"]=another_turtle(move_t1.position()[0],move_t1.position()[1])
 
-                    random_lists.remove(move_t1.position())
+                    random_lists.remove(list(move_t1.position()))
                     score=score+1
                     score_t.clear()
                     score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
@@ -244,42 +248,241 @@ def move_up():
                         if list(prey_tn[prey].position()) not in random_lists:
                             prey_tn[prey].hideturtle()
 
+                 
 
-                for index,key in move_tn:
-                    if index>=1:
-                        move_tn[key].goto(move_tn[f"move_t{index}"].position())
+# 움직임 함수 다 다시 쓰기
+def move_right():
+    global move_t1
+    global current_action
+    global move_tn
+    global prey_tn
+    global score
+    global score_t
 
-        
+    current_action="Right"
+    current_x_num=int((move_t1.position()[0]+225)//(30))
+    current_y_num=int((move_t1.position()[1]+225)//(30))
+    move_t1.goto(value[current_x_num],value[current_y_num])
+    move_t1.setheading(0)
+    n=score
 
-        
+    for prey in prey_tn:
+        if list(prey_tn[prey].position()) not in random_lists:
+            prey_tn[prey].hideturtle()
 
+    for _ in range(15):
+        while current_action=="Right" and move_t1.position()[0]<=225:            
             
+            # 전에 있던 자리로!!            
+            for index,key in enumerate(move_tn):
+                if index>=1:
+                    move_tn[key].goto(move_tn[f"move_t{index}"].position())       
 
-            
-
-
-        
+            if move_t1.position()[0]==225:
+                if move_t1.position()[1]==-225:
+                    move_t1.left(90)
+                elif move_t1.position()[1]==225:
+                    move_t1.right(90)
+                else:
+                    move_t1.right(90)                         
                 
+                move_t1.forward(square_size)
 
+                if list(move_t1.position()) in random_lists:
 
+                    move_tn[f"move_t{n+2}"]=another_turtle(move_t1.position()[0],move_t1.position()[1])
 
+                    random_lists.remove(list(move_t1.position()))
+                    score=score+1
+                    score_t.clear()
+                    score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
 
+                    if score==prey_num:
+                        love_turtle()
+                        pink_heart()
+                        return 0
 
+                    for prey in prey_tn:
+                        if list(prey_tn[prey].position()) not in random_lists:
+                            prey_tn[prey].hideturtle()                           
 
+            else:
+                move_t1.forward(square_size)
+                if list(move_t1.position()) in random_lists:
 
+                    move_tn[f"move_t{n+2}"]=another_turtle(move_t1.position()[0],move_t1.position()[1])
 
+                    random_lists.remove(list(move_t1.position()))
+                    score=score+1
+                    score_t.clear()
+                    score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
 
+                    if score==prey_num:
+                        love_turtle()
+                        pink_heart()
+                        return 0
 
+                    for prey in prey_tn:
+                        if list(prey_tn[prey].position()) not in random_lists:
+                            prey_tn[prey].hideturtle()
 
+                 
 
+# 움직임 함수 다 다시 쓰기
+def move_down():
+    global move_t1
+    global current_action
+    global move_tn
+    global prey_tn
+    global score
+    global score_t
 
+    current_action="Down"
+    current_x_num=int((move_t1.position()[0]+225)//(30))
+    current_y_num=int((move_t1.position()[1]+225)//(30))
+    move_t1.goto(value[current_x_num],value[current_y_num])
+    move_t1.setheading(270)
+    n=score
 
+    for prey in prey_tn:
+        if list(prey_tn[prey].position()) not in random_lists:
+            prey_tn[prey].hideturtle()
 
+    for _ in range(15):
+        while current_action=="Down" and move_t1.position()[1]>=-225:          
+            
+            # 전에 있던 자리로!!            
+            for index,key in enumerate(move_tn):
+                if index>=1:
+                    move_tn[key].goto(move_tn[f"move_t{index}"].position())       
 
+            if move_t1.position()[1]==-225:
+                if move_t1.position()[0]==-225:
+                    move_t1.left(90)
+                elif move_t1.position()[0]==225:
+                    move_t1.right(90)
+                else:
+                    move_t1.right(90)                         
+                
+                move_t1.forward(square_size)
 
+                if list(move_t1.position()) in random_lists:
 
+                    move_tn[f"move_t{n+2}"]=another_turtle(move_t1.position()[0],move_t1.position()[1])
 
+                    random_lists.remove(list(move_t1.position()))
+                    score=score+1
+                    score_t.clear()
+                    score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
 
+                    if score==prey_num:
+                        love_turtle()
+                        pink_heart()
+                        return 0
+
+                    for prey in prey_tn:
+                        if list(prey_tn[prey].position()) not in random_lists:
+                            prey_tn[prey].hideturtle()                           
+
+            else:
+                move_t1.forward(square_size)
+                if list(move_t1.position()) in random_lists:
+
+                    move_tn[f"move_t{n+2}"]=another_turtle(move_t1.position()[0],move_t1.position()[1])
+
+                    random_lists.remove(list(move_t1.position()))
+                    score=score+1
+                    score_t.clear()
+                    score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
+
+                    if score==prey_num:
+                        love_turtle()
+                        pink_heart()
+                        return 0
+
+                    for prey in prey_tn:
+                        if list(prey_tn[prey].position()) not in random_lists:
+                            prey_tn[prey].hideturtle()
+
+                 
+
+# 움직임 함수 다 다시 쓰기
+def move_left():
+    global move_t1
+    global current_action
+    global move_tn
+    global prey_tn
+    global score
+    global score_t
+
+    current_action="Left"
+    current_x_num=int((move_t1.position()[0]+225)//(30))
+    current_y_num=int((move_t1.position()[1]+225)//(30))
+    move_t1.goto(value[current_x_num],value[current_y_num])
+    move_t1.setheading(180)
+    n=score
+
+    for prey in prey_tn:
+        if list(prey_tn[prey].position()) not in random_lists:
+            prey_tn[prey].hideturtle()
+
+    for _ in range(15):
+        while current_action=="Left" and move_t1.position()[0]>=-225:          
+            
+            # 전에 있던 자리로!!
+            
+            for index,key in enumerate(move_tn):
+                if index>=1:
+                    move_tn[key].goto(move_tn[f"move_t{index}"].position())       
+
+            if move_t1.position()[0]==-225:
+                if move_t1.position()[1]==-225:
+                    move_t1.right(90)
+                elif move_t1.position()[1]==225:
+                    move_t1.left(90)
+                else:
+                    move_t1.right(90)                         
+                
+                move_t1.forward(square_size)
+
+                if list(move_t1.position()) in random_lists:
+
+                    move_tn[f"move_t{n+2}"]=another_turtle(move_t1.position()[0],move_t1.position()[1])
+
+                    random_lists.remove(list(move_t1.position()))
+                    score=score+1
+                    score_t.clear()
+                    score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
+
+                    if score==prey_num:
+                        love_turtle()
+                        pink_heart()
+                        return 0
+
+                    for prey in prey_tn:
+                        if list(prey_tn[prey].position()) not in random_lists:
+                            prey_tn[prey].hideturtle()                           
+
+            else:
+                move_t1.forward(square_size)
+                if list(move_t1.position()) in random_lists:
+
+                    move_tn[f"move_t{n+2}"]=another_turtle(move_t1.position()[0],move_t1.position()[1])
+
+                    random_lists.remove(list(move_t1.position()))
+                    score=score+1
+                    score_t.clear()
+                    score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
+
+                    if score==prey_num:
+                        love_turtle()
+                        pink_heart()
+                        return 0
+
+                    for prey in prey_tn:
+                        if list(prey_tn[prey].position()) not in random_lists:
+                            prey_tn[prey].hideturtle()
+    
 
 
 # Bind keyboard events to functions
@@ -317,6 +520,10 @@ def love_turtle():
     love_t.write(f"Do you want to go out with me tonight? *^^*",font=("Arial",15,"bold"),align="left")
     love_t.pendown()
     screen.tracer(1)
+
+    for prey in prey_tn:
+        if list(prey_tn[prey].position()) not in random_lists:
+            prey_tn[prey].hideturtle()
 
 # Listen for keyboard events
 screen.listen()

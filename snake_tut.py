@@ -3,9 +3,9 @@ import turtle
 # Create a turtle object
 t = turtle.Turtle()
 
-t.setheading(90)
+t.setheading(270)
 
 # Rotate the turtle to the right by 90 degrees
-t.left(90)
+t.right(90)
 
 turtle.done()
