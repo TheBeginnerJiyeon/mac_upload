@@ -196,9 +196,14 @@ def move_up():
             if current_action!="Up":
                 break
             # 꼬리 갯수만 고치면!!!!!! ㅠㅠ
+
+            copy_position=[]
             for index,key in enumerate(move_tn):
+                copy_position.append(move_tn[key].position())
+
+            for index,key in enumerate(move_tn):    
                 if index>=1:
-                    move_tn[key].goto(move_tn[f"move_t{index}"].position())       
+                    move_tn[key].goto(copy_position[index-1])       
 
             if move_t1.position()[1]==225:
                 if move_t1.position()[0]==-225:
@@ -209,6 +214,8 @@ def move_up():
                     move_t1.right(90)                         
                 
                 move_t1.forward(square_size)
+
+        
 
                 if list(move_t1.position()) in random_lists:
                     score_t.clear()
@@ -272,11 +279,15 @@ def move_right():
     for _ in range(15):
         while current_action=="Right" and move_t1.position()[0]<=225:
             if current_action!="Right":
-                break          
-   
+                break     
+
+            copy_position=[]
             for index,key in enumerate(move_tn):
+                copy_position.append(move_tn[key].position())
+
+            for index,key in enumerate(move_tn):    
                 if index>=1:
-                    move_tn[key].goto(move_tn[f"move_t{index}"].position())       
+                    move_tn[key].goto(copy_position[index-1])       
 
             if move_t1.position()[0]==225:
                 if move_t1.position()[1]==-225:
@@ -352,9 +363,13 @@ def move_down():
             if current_action!="Down":
                 break         
                     
+            copy_position=[]
             for index,key in enumerate(move_tn):
+                copy_position.append(move_tn[key].position())
+
+            for index,key in enumerate(move_tn):    
                 if index>=1:
-                    move_tn[key].goto(move_tn[f"move_t{index}"].position())       
+                    move_tn[key].goto(copy_position[index-1])  
 
             if move_t1.position()[1]==-225:
                 if move_t1.position()[0]==-225:
@@ -430,9 +445,13 @@ def move_left():
             if current_action!="Left":
                 break         
             
+            copy_position=[]
             for index,key in enumerate(move_tn):
+                copy_position.append(move_tn[key].position())
+
+            for index,key in enumerate(move_tn):    
                 if index>=1:
-                    move_tn[key].goto(move_tn[f"move_t{index}"].position())       
+                    move_tn[key].goto(copy_position[index-1])  
 
             if move_t1.position()[0]==-225:
                 if move_t1.position()[1]==-225:

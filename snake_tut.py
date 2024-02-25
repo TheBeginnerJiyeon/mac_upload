@@ -2,13 +2,10 @@ import turtle
 
 # Create a turtle object
 t = turtle.Turtle()
+t.forward(100)
 
-t.setheading(270)
+t2 =turtle.Turtle()
 
-# Rotate the turtle to the right by 90 degrees
-t.right(90)
-score=1
-t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
-t.clear()
+t2.goto(t.position())
 
 turtle.done()
