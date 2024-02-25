@@ -1,7 +1,6 @@
 import turtle
 import random
 
-# 뱀 꼬리 부분 움직임만 수정하면 끝!!
 
 # Set up the screen
 screen = turtle.Screen()
@@ -187,15 +186,16 @@ def move_up():
     move_t1.setheading(90)
     n=score
 
+    # 먹이 숨기기
     for prey in prey_tn:
         if list(prey_tn[prey].position()) not in random_lists:
             prey_tn[prey].hideturtle()
 
     for _ in range(15):
         while current_action=="Up" and move_t1.position()[1]<=225:        
-            
-            # 전에 있던 자리로!!
-            
+            if current_action!="Up":
+                break
+            # 꼬리 갯수만 고치면!!!!!! ㅠㅠ
             for index,key in enumerate(move_tn):
                 if index>=1:
                     move_tn[key].goto(move_tn[f"move_t{index}"].position())       
@@ -211,12 +211,12 @@ def move_up():
                 move_t1.forward(square_size)
 
                 if list(move_t1.position()) in random_lists:
-
-                    move_tn[f"move_t{n+2}"]=another_turtle(move_t1.position()[0],move_t1.position()[1])
+                    score_t.clear()
+                    move_tn[f"move_t{n+2}"]=another_turtle(move_tn[f"move_t{n+1}"].position()[0],move_tn[f"move_t{n+1}"].position()[1])
 
                     random_lists.remove(list(move_t1.position()))
                     score=score+1
-                    score_t.clear()
+                    
                     score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
 
                     if score==prey_num:
@@ -231,12 +231,12 @@ def move_up():
             else:
                 move_t1.forward(square_size)
                 if list(move_t1.position()) in random_lists:
-
-                    move_tn[f"move_t{n+2}"]=another_turtle(move_t1.position()[0],move_t1.position()[1])
+                    score_t.clear()
+                    move_tn[f"move_t{n+2}"]=another_turtle(move_tn[f"move_t{n+1}"].position()[0],move_tn[f"move_t{n+1}"].position()[1])
 
                     random_lists.remove(list(move_t1.position()))
                     score=score+1
-                    score_t.clear()
+                    
                     score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
 
                     if score==prey_num:
@@ -250,7 +250,6 @@ def move_up():
 
                  
 
-# 움직임 함수 다 다시 쓰기
 def move_right():
     global move_t1
     global current_action
@@ -271,9 +270,10 @@ def move_right():
             prey_tn[prey].hideturtle()
 
     for _ in range(15):
-        while current_action=="Right" and move_t1.position()[0]<=225:            
-            
-            # 전에 있던 자리로!!            
+        while current_action=="Right" and move_t1.position()[0]<=225:
+            if current_action!="Right":
+                break          
+   
             for index,key in enumerate(move_tn):
                 if index>=1:
                     move_tn[key].goto(move_tn[f"move_t{index}"].position())       
@@ -289,12 +289,12 @@ def move_right():
                 move_t1.forward(square_size)
 
                 if list(move_t1.position()) in random_lists:
-
-                    move_tn[f"move_t{n+2}"]=another_turtle(move_t1.position()[0],move_t1.position()[1])
+                    score_t.clear()
+                    move_tn[f"move_t{n+2}"]=another_turtle(move_tn[f"move_t{n+1}"].position()[0],move_tn[f"move_t{n+1}"].position()[1])
 
                     random_lists.remove(list(move_t1.position()))
                     score=score+1
-                    score_t.clear()
+                    
                     score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
 
                     if score==prey_num:
@@ -309,12 +309,12 @@ def move_right():
             else:
                 move_t1.forward(square_size)
                 if list(move_t1.position()) in random_lists:
-
-                    move_tn[f"move_t{n+2}"]=another_turtle(move_t1.position()[0],move_t1.position()[1])
+                    score_t.clear()
+                    move_tn[f"move_t{n+2}"]=another_turtle(move_tn[f"move_t{n+1}"].position()[0],move_tn[f"move_t{n+1}"].position()[1])
 
                     random_lists.remove(list(move_t1.position()))
                     score=score+1
-                    score_t.clear()
+                    
                     score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
 
                     if score==prey_num:
@@ -328,7 +328,6 @@ def move_right():
 
                  
 
-# 움직임 함수 다 다시 쓰기
 def move_down():
     global move_t1
     global current_action
@@ -349,9 +348,10 @@ def move_down():
             prey_tn[prey].hideturtle()
 
     for _ in range(15):
-        while current_action=="Down" and move_t1.position()[1]>=-225:          
-            
-            # 전에 있던 자리로!!            
+        while current_action=="Down" and move_t1.position()[1]>=-225: 
+            if current_action!="Down":
+                break         
+                    
             for index,key in enumerate(move_tn):
                 if index>=1:
                     move_tn[key].goto(move_tn[f"move_t{index}"].position())       
@@ -367,12 +367,13 @@ def move_down():
                 move_t1.forward(square_size)
 
                 if list(move_t1.position()) in random_lists:
-
-                    move_tn[f"move_t{n+2}"]=another_turtle(move_t1.position()[0],move_t1.position()[1])
+                    score_t.clear()
+                    move_tn[f"move_t{n+2}"]=another_turtle(move_tn[f"move_t{n+1}"].position()[0],move_tn[f"move_t{n+1}"].position()[1])
 
                     random_lists.remove(list(move_t1.position()))
                     score=score+1
-                    score_t.clear()
+                    
+
                     score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
 
                     if score==prey_num:
@@ -387,12 +388,12 @@ def move_down():
             else:
                 move_t1.forward(square_size)
                 if list(move_t1.position()) in random_lists:
-
-                    move_tn[f"move_t{n+2}"]=another_turtle(move_t1.position()[0],move_t1.position()[1])
+                    score_t.clear()
+                    move_tn[f"move_t{n+2}"]=another_turtle(move_tn[f"move_t{n+1}"].position()[0],move_tn[f"move_t{n+1}"].position()[1])
 
                     random_lists.remove(list(move_t1.position()))
                     score=score+1
-                    score_t.clear()
+                    
                     score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
 
                     if score==prey_num:
@@ -405,8 +406,6 @@ def move_down():
                             prey_tn[prey].hideturtle()
 
                  
-
-# 움직임 함수 다 다시 쓰기
 def move_left():
     global move_t1
     global current_action
@@ -427,9 +426,9 @@ def move_left():
             prey_tn[prey].hideturtle()
 
     for _ in range(15):
-        while current_action=="Left" and move_t1.position()[0]>=-225:          
-            
-            # 전에 있던 자리로!!
+        while current_action=="Left" and move_t1.position()[0]>=-225:
+            if current_action!="Left":
+                break         
             
             for index,key in enumerate(move_tn):
                 if index>=1:
@@ -446,12 +445,11 @@ def move_left():
                 move_t1.forward(square_size)
 
                 if list(move_t1.position()) in random_lists:
-
-                    move_tn[f"move_t{n+2}"]=another_turtle(move_t1.position()[0],move_t1.position()[1])
-
+                    score_t.clear()
+                    move_tn[f"move_t{n+2}"]=another_turtle(move_tn[f"move_t{n+1}"].position()[0],move_tn[f"move_t{n+1}"].position()[1])
                     random_lists.remove(list(move_t1.position()))
                     score=score+1
-                    score_t.clear()
+                    
                     score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
 
                     if score==prey_num:
@@ -466,12 +464,12 @@ def move_left():
             else:
                 move_t1.forward(square_size)
                 if list(move_t1.position()) in random_lists:
-
-                    move_tn[f"move_t{n+2}"]=another_turtle(move_t1.position()[0],move_t1.position()[1])
+                    score_t.clear()
+                    move_tn[f"move_t{n+2}"]=another_turtle(move_tn[f"move_t{n+1}"].position()[0],move_tn[f"move_t{n+1}"].position()[1])
 
                     random_lists.remove(list(move_t1.position()))
                     score=score+1
-                    score_t.clear()
+                    
                     score_t.write(f"Score: {score}",font=("Arial",20,"bold"),align="right")
 
                     if score==prey_num:
@@ -494,6 +492,9 @@ screen.onkeypress(move_left, "Left")
 # moving turtle animation
 
 def another_turtle(current_x,current_y):
+    for prey in prey_tn:
+        if list(prey_tn[prey].position()) not in random_lists:
+            prey_tn[prey].hideturtle()
     
     move_trail=turtle.Turtle()
     move_trail.hideturtle()
