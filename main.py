@@ -197,6 +197,7 @@ def move_up():
                 break
             # 꼬리 갯수만 고치면!!!!!! ㅠㅠ
 
+            screen.tracer(0)
             copy_position=[]
             for index,key in enumerate(move_tn):
                 copy_position.append(move_tn[key].position())
@@ -204,6 +205,7 @@ def move_up():
             for index,key in enumerate(move_tn):    
                 if index>=1:
                     move_tn[key].goto(copy_position[index-1])       
+            screen.tracer(1)
 
             if move_t1.position()[1]==225:
                 if move_t1.position()[0]==-225:
@@ -280,7 +282,8 @@ def move_right():
         while current_action=="Right" and move_t1.position()[0]<=225:
             if current_action!="Right":
                 break     
-
+            
+            screen.tracer(0)
             copy_position=[]
             for index,key in enumerate(move_tn):
                 copy_position.append(move_tn[key].position())
@@ -288,6 +291,8 @@ def move_right():
             for index,key in enumerate(move_tn):    
                 if index>=1:
                     move_tn[key].goto(copy_position[index-1])       
+
+            screen.tracer(1)
 
             if move_t1.position()[0]==225:
                 if move_t1.position()[1]==-225:
@@ -361,7 +366,9 @@ def move_down():
     for _ in range(15):
         while current_action=="Down" and move_t1.position()[1]>=-225: 
             if current_action!="Down":
-                break         
+                break       
+
+            screen.tracer(0)      
                     
             copy_position=[]
             for index,key in enumerate(move_tn):
@@ -370,6 +377,8 @@ def move_down():
             for index,key in enumerate(move_tn):    
                 if index>=1:
                     move_tn[key].goto(copy_position[index-1])  
+            
+            screen.tracer(1)
 
             if move_t1.position()[1]==-225:
                 if move_t1.position()[0]==-225:
@@ -445,6 +454,7 @@ def move_left():
             if current_action!="Left":
                 break         
             
+            screen.tracer(0)
             copy_position=[]
             for index,key in enumerate(move_tn):
                 copy_position.append(move_tn[key].position())
@@ -453,6 +463,8 @@ def move_left():
                 if index>=1:
                     move_tn[key].goto(copy_position[index-1])  
 
+            screen.tracer(1)
+            
             if move_t1.position()[0]==-225:
                 if move_t1.position()[1]==-225:
                     move_t1.right(90)
