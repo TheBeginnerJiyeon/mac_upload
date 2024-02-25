@@ -138,7 +138,8 @@ move_t1.pen(pendown=False)
 move_t1.speed(1)
 move_t1.penup()
 move_t1.goto(start_center_x,start_center_y)
-
+move_t1.speed(1)
+# 천천히 해야 좌표가 딱 맞아서 오류가 안난다
 
 def pink_heart():
     global heart_color
